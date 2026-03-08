@@ -27,13 +27,17 @@
             color: #3f312b;
         }
 
-        #wrapper {
+#wrapper {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px 20px 10px;
+            /* 背景画像の設定 */
+            background-image: url('s-1130.png');
+            background-size: 500px; /* 画像のサイズ（お好みで） */
+            background-position: top center; /* 画像を中央に配置 */
+            background-repeat: no-repeat;
         }
 
-        /* --- タイトル部分 --- */
         .sitetitle {
             font-family: "アームド・バナナ";
             font-size: 50px;
@@ -41,9 +45,9 @@
             color: #f8fbf8;
             text-shadow: 0 0 10px #00a497;
             display: block;
-            text-align: left;
+            text-align: center; /* サイト名を中央に */
+            padding-top: 40px;  /* 画像との重なり位置の調整 */
         }
-
         p.site-url {
             font-family: 'Architects Daughter', cursive;
             color: #ccc;
