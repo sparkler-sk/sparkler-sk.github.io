@@ -7,7 +7,6 @@
     <title>作品ページ</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <script>
     $(document).ready(function() {
         var savedBg = sessionStorage.getItem('bg_style');
@@ -65,32 +64,65 @@
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
     <style type="text/css">
         @charset "UTF-8";
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP|Noto+Serif+JP|Roboto&display=swap');
-        
         * { padding: 0; margin: 0; box-sizing: border-box; }
-        
-        body { 
-            text-align: justify; 
-            word-break: break-word; 
-            line-height: 1.7; 
-            letter-spacing: 0.1em; 
-            background-color: #fff; /* デフォルト背景 */
-            font-size: 13px; 
-            color: #000; 
-            font-family: メイリオ, 'Noto Sans JP', sans-serif; 
-        }
+        body { text-align: justify; word-break: break-word; line-height: 1.7; letter-spacing: 0.1em; background-color: #fff; font-size: 13px; color: #000; font-family: メイリオ, 'Noto Sans JP', sans-serif; }
+        body::before { position: fixed; display: block; content: ''; top: 0; left: 0; z-index: -10000; width: 100vw; height: 100vh; background: linear-gradient(0deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)) center/cover; }
+        a { outline: none; color: #000; }
+        h3 { font-size: 1.5rem; margin: 2rem 0rem 1rem; }
+        h4 { text-align: left; font-size: 1.2rem; margin: 2rem 0rem 1rem; border-bottom: 2px double #5d4157; }
+        h5 { font-size: 1rem; margin: 2rem 0rem 1rem; }
+        p { text-align: left; }
+        hr { border: 0; border-bottom: solid 2px; margin: 3rem 0rem; border-bottom-color: #000; }
+        main { text-align: center; margin: 3rem auto; padding: 1.5rem; max-width: 620px; }
+        @media (min-width: 768px) { main { padding: 3rem; } }
+        .style { margin-top: 0rem; height: 10rem; width: 100%; overflow: hidden; }
+        .black main { background-color: rgba(0,0,0,.6); color: #fff; }
+        .black h4 { border-bottom-color: #fff; }
+        .black a { color: #fff; }
+        .white main { background-color: rgba(255,255,255,.6); color: #000; }
+        #BgToggle, #switchFont, #switchFontSize { margin-top: 0px; margin-bottom: 10px; float: left; font-size: 1em; }
+        #BgToggle, #switchFont li, #switchFontSize li { list-style: none; float: left; text-align: center; text-decoration: none; padding: 0 10px; border: 1px solid #eeeeee; color: #222; display: block; height: 30px; line-height: 30px; cursor: pointer; background-color: #e2e2e2; }
+        #novel_buttons { display: flex; justify-content: flex-end; padding-right: 10px; }
+        .novel { clear: both; }
+        #honbun { font-size: 14px; line-height: 2; letter-spacing: 0.025em; padding-top: 1em; padding-left: 0.5em; padding-right: 0.5em; }
+        #honbun > p { margin-top: 2em; }
+        #honbun > p:first-child { margin-top: 0; }
+        .small { font-size: 13px !important; }
+        .middle { font-size: 14px !important; }
+        .large { font-size: 18px !important; }
+        .serif { font-family: 'Noto Serif JP', serif !important; }
+        .gothic { font-family: メイリオ, sans-serif !important; }
+    </style>
+</head>
 
-        /* サイト全体の背景 */
-        body::before { 
-            position: fixed; 
-            display: block; 
-            content: ''; 
-            top: 0; left: 0; 
-            z-index: -10000; 
-            width: 100vw; height: 100vh; 
-            background-color: #eee; /* ここが一番後ろの背景色です */
+<body id="all" class="white">
+    <main>
+        <section class="style">
+            <div id="novel_buttons">  
+                <ul id="s_ul" style="display: flex; justify-content: flex-end;">
+                    <li id="s_li"><ul id="bw_swich"><li id="BgToggle" title="背景切替"><i class="fas fa-adjust"></i></li></ul></li>
+                    <li id="s_li"><ul id="switchFont"><li id="btn_font_toggle" class="serif" title="書体切替">ａＡ</li></ul></li>
+                    <li id="s_li"><ul id="switchFontSize"><li id="btn_size_toggle" class="gothic current" title="サイズ変更">M</li></ul></li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="novel">
+            <div id="honbun">
+                <p>
+                    ここに本文を書きます。
+                </p>
+                <br>
+                <a href="short.html" style="text-decoration:none;">戻る</a>
+            </div> 
+        </div>
+    </main>
+</body>
+</html>            background-color: #eee; /* ここが一番後ろの背景色です */
         }
 
         /* メインの文章枠（ここが透けます） */
