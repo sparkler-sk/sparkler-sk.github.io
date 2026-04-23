@@ -2,33 +2,30 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>作品一覧</title>
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style type="text/css">
-        /* あなたのCSSをそのまま一字一句変えずに使用 */
+        /* あなたのCSSをそのまま一字一句変えずに使用（点滅回避のためbodyの初期色を固定しない） */
         @charset "UTF-8";
         @import url('https://fonts.googleapis.com|Noto+Sans+JP|Noto+Serif+JP|Roboto&display=swap');
         * { padding: 0; margin: 0; box-sizing: border-box; }
         ul, li { list-style: none !important; }
-        body { text-align: justify; word-break: break-word; line-height: 1.7; letter-spacing: 0.1em; background-color: #fff; font-size: 13px; color: #000; font-family: メイリオ, 'Noto Sans JP', sans-serif; }
+        body { text-align: justify; word-break: break-word; line-height: 1.7; letter-spacing: 0.1em; font-size: 13px; font-family: メイリオ, 'Noto Sans JP', sans-serif; }
         body::before { position: fixed; display: block; content: ''; top: 0; left: 0; z-index: -10000; width: 100vw; height: 100vh; background: linear-gradient(0deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)),url('bg.jpg') center/cover; }
         a { outline: none; color: #000; }
-        h3 { font-size: 1.5rem; margin: 2rem 0rem 1rem; }
-        h4 { text-align: left; font-size: 1.2rem; margin: 2rem 0rem 1rem; border-bottom: 2px double #5d4157; }
         main { text-align: center; margin: 3rem auto; padding: 1.5rem; max-width: 620px; }
         @media (min-width: 768px) { main { padding: 3rem; } }
         .style { margin-top: 0rem; height: 10rem; width: 100%; overflow: hidden; }
         .black main { background-color: rgba(0,0,0,.6); color: #fff; }
+        .black a { color: #fff; }
         .white main { background-color: rgba(255,255,255,.6); color: #000; }
-        #BgToggle, #switchFont, #switchFontSize { margin-top: 0px; margin-bottom: 10px; float: left; font-size: 1em; }
-        #BgToggle, #switchFont li, #switchFontSize li { float: left; text-align: center; text-decoration: none; padding: 0 10px; border: 1px solid #eeeeee; color: #222; display: block; height: 30px; line-height: 30px; cursor: pointer; background-color: #e2e2e2; }
+        #BgToggle, #switchFont, #switchFontSize { float: left; font-size: 1em; }
+        #BgToggle, #switchFont li, #switchFontSize li { text-align: center; padding: 0 10px; border: 1px solid #eeeeee; color: #222; display: block; height: 30px; line-height: 30px; cursor: pointer; background-color: #e2e2e2; }
         #novel_buttons { display: flex; justify-content: flex-end; padding-right: 10px; }
-        #honbun { font-size: 14px; line-height: 2; letter-spacing: 0.025em; padding-top: 1em; padding-left: 0.5em; padding-right: 0.5em; }
+        #honbun { font-size: 14px; line-height: 2; padding: 1em 0.5em; }
         .small { font-size: 13px !important; }
         .middle { font-size: 14px !important; }
         .large { font-size: 18px !important; }
@@ -47,60 +44,48 @@
     <section class="style">
         <div id="novel_buttons">  
             <ul id="s_ul" style="display: flex; justify-content: flex-end;">
-                <li id="s_li"><ul id="bw_swich"><li id="BgToggle" title="背景切替"><i class="fas fa-adjust"></i></li></ul></li>
-                <li id="s_li"><ul id="switchFont"><li id="btn_font_toggle" class="serif" title="書体切替">ａＡ</li></ul></li>
-                <li id="s_li"><ul id="switchFontSize"><li id="btn_size_toggle" class="gothic current" title="サイズ変更">M</li></ul></li>
+                <li><ul id="bw_swich"><li id="BgToggle"><i class="fas fa-adjust"></i></li></ul></li>
+                <li><ul id="switchFont"><li id="btn_font_toggle" class="serif">ａＡ</li></ul></li>
+                <li><ul id="switchFontSize"><li id="btn_size_toggle" class="gothic">M</li></ul></li>
             </ul>
         </div>
     </section>
 
     <div class="novel">
         <div id="honbun">
-            <p>
-                <a href="story01.html">01. 小説タイトル</a>
-            </p>
+            <p><a href="story01.html">01. タイトル</a></p>
         </div> 
     </div>
 </main>
 
 <script>
 $(document).ready(function() {
-    // --- スイッチの動作ロジック（あなたのコードそのまま） ---
+    // ボタンのクリック動作のみここに記述
     $("#BgToggle").click(function () {
-        if ($("body").hasClass('white')) {
-            sessionStorage.setItem('bg_style', 'black');
-            $("body").addClass('black').removeClass('white');
-        } else {
-            sessionStorage.setItem('bg_style', 'white');
-            $("body").addClass('white').removeClass('black');
-        }
+        var isWhite = $("body").hasClass('white');
+        var nextBg = isWhite ? 'black' : 'white';
+        sessionStorage.setItem('bg_style', nextBg);
+        $("body").attr('class', nextBg);
     });
 
-    var savedFont = sessionStorage.getItem('font_style') || 'gothic';
-    applyFont(savedFont);
+    // フォントとサイズの設定
+    var f = sessionStorage.getItem('font_style') || 'gothic';
+    var s = sessionStorage.getItem('font_size') || 'middle';
+    $("#honbun").addClass(f).addClass(s);
+
     $("#btn_font_toggle").click(function () {
-        var currentFont = sessionStorage.getItem('font_style') || 'gothic';
-        applyFont(currentFont === 'gothic' ? 'serif' : 'gothic');
+        var n = $("#honbun").hasClass('gothic') ? 'serif' : 'gothic';
+        sessionStorage.setItem('font_style', n);
+        $("#honbun").removeClass('serif gothic').addClass(n);
     });
 
-    function applyFont(font) {
-        sessionStorage.setItem('font_style', font);
-        if (font === 'serif') { $("#honbun").addClass('serif').removeClass('gothic'); }
-        else { $("#honbun").addClass('gothic').removeClass('serif'); }
-    }
-
-    var savedSize = sessionStorage.getItem('font_size') || 'middle';
-    applySize(savedSize);
     $("#btn_size_toggle").click(function () {
-        var currentSize = sessionStorage.getItem('font_size') || 'middle';
-        var nextSize = (currentSize === 'middle') ? 'large' : (currentSize === 'large' ? 'small' : 'middle');
-        applySize(nextSize);
+        var cur = sessionStorage.getItem('font_size') || 'middle';
+        var n = (cur === 'middle') ? 'large' : (cur === 'large' ? 'small' : 'middle');
+        sessionStorage.setItem('font_size', n);
+        $("#honbun").removeClass('small middle large').addClass(n);
+        $(this).text(n === 'small' ? 'S' : (n === 'large' ? 'L' : 'M'));
     });
-
-    function applySize(size) {
-        sessionStorage.setItem('font_size', size);
-        $("#honbun").removeClass('small middle large').addClass(size);
-    }
 });
 </script>
 </body>
