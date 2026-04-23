@@ -7,11 +7,9 @@
     <title>作品ページ</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <script>
     $(document).ready(function() {
-        // --- 背景 ---
         var savedBg = sessionStorage.getItem('bg_style');
         if (savedBg === 'white' || (savedBg === null && $("body").attr('class').match(/white/))) {
             $("body").addClass('white').removeClass('black');
@@ -28,8 +26,6 @@
                 $("body").addClass('white').removeClass('black');
             }
         });
-
-        // --- フォント ---
         var savedFont = sessionStorage.getItem('font_style') || 'gothic';
         applyFont(savedFont);
         $("#btn_font_toggle").click(function () {
@@ -49,8 +45,6 @@
                 btn.text('ａＡ').addClass('serif').removeClass('gothic').attr('title', '明朝体へ');
             }
         }
-
-        // --- フォントサイズ ---
         var savedSize = sessionStorage.getItem('font_size') || 'middle';
         applySize(savedSize);
         $("#btn_size_toggle").click(function () {
@@ -70,126 +64,86 @@
     });
     </script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style type="text/css">
-    @charset "UTF-8";
-    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP|Noto+Serif+JP|Roboto&display=swap');
-    
-    /* あなたのCSSをそのまま1ミリも変えずにここに置きます */
-    * { padding: 0; margin: 0; box-sizing: border-box; }
-    body { text-align: justify; word-break: break-word; line-height: 1.7; letter-spacing: 0.1em; background-color: #fff; font-size: 13px; color: #000; font-family: メイリオ, 'Noto Sans JP', sans-serif; }
-    
-    /* 背景画像がない場合はこの部分は無視されます */
-    body::before { position: fixed; display: block; content: ''; top: 0; left: 0; z-index: -10000; width: 100vw; height: 100vh; background: linear-gradient(0deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)) center/cover; }
-    
-    a { outline: none; color: #000; text-decoration: none; }
-    main { text-align: center; margin: 3rem auto; padding: 1.5rem; max-width: 620px; }
-    @media (min-width: 768px) { main { padding: 3rem; } }
+        @charset "UTF-8";
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP|Noto+Serif+JP|Roboto&display=swap');
+        
+        * { padding: 0; margin: 0; box-sizing: border-box; }
+        
+        body { 
+            text-align: justify; 
+            word-break: break-word; 
+            line-height: 1.7; 
+            letter-spacing: 0.1em; 
+            background-color: #fff; /* デフォルト背景 */
+            font-size: 13px; 
+            color: #000; 
+            font-family: メイリオ, 'Noto Sans JP', sans-serif; 
+        }
 
-    /* 色変更設定 */
-    .black main { background-color: rgba(0,0,0,.6); color: #fff; }
-    .black a { color: #fff; }
-    .white main { background-color: rgba(255,255,255,.6); color: #000; }
+        /* サイト全体の背景 */
+        body::before { 
+            position: fixed; 
+            display: block; 
+            content: ''; 
+            top: 0; left: 0; 
+            z-index: -10000; 
+            width: 100vw; height: 100vh; 
+            background-color: #eee; /* ここが一番後ろの背景色です */
+        }
 
-    /* ボタンのデザイン */
-    #BgToggle, #switchFont, #switchFontSize { margin-bottom: 10px; float: left; font-size: 1em; }
-    #BgToggle, #switchFont li, #switchFontSize li { list-style: none; float: left; text-align: center; padding: 0 10px; border: 1px solid #eeeeee; color: #222; display: block; height: 30px; line-height: 30px; cursor: pointer; background-color: #e2e2e2; }
-    #novel_buttons { display: flex; justify-content: flex-end; padding-right: 10px; }
+        /* メインの文章枠（ここが透けます） */
+        main { 
+            text-align: center; 
+            margin: 3rem auto; 
+            padding: 1.5rem; 
+            max-width: 620px; 
+        }
 
-    /* 本文のデザイン */
-    #honbun { font-size: 14px; line-height: 2; letter-spacing: 0.025em; padding-top: 1em; text-align: left; }
-    .small { font-size: 13px !important; }
-    .middle { font-size: 14px !important; }
-    .large { font-size: 18px !important; }
-    .serif { font-family: 'Noto Serif JP', serif !important; }
-    .gothic { font-family: メイリオ, sans-serif !important; }
-    
-    /* 戻るリンク用 */
-    .back_button { text-align: center; margin-top: 2em; }
+        @media (min-width: 768px) { main { padding: 3rem; } }
+
+        /* ★ここが重要：色の設定★ */
+        .white main { background-color: rgba(255,255,255,.6); color: #000; }
+        .black main { background-color: rgba(0,0,0,.6); color: #fff; }
+        
+        .black a { color: #fff; }
+
+        /* ボタン */
+        #novel_buttons { display: flex; justify-content: flex-end; padding-right: 10px; }
+        #BgToggle, #switchFont, #switchFontSize { list-style: none; float: left; text-align: center; padding: 0 10px; border: 1px solid #eeeeee; color: #222; display: block; height: 30px; line-height: 30px; cursor: pointer; background-color: #e2e2e2; margin-bottom: 10px; }
+
+        /* 本文 */
+        #honbun { font-size: 14px; line-height: 2; letter-spacing: 0.025em; padding-top: 1em; text-align: left; }
+        .small { font-size: 13px !important; }
+        .middle { font-size: 14px !important; }
+        .large { font-size: 18px !important; }
+        .serif { font-family: 'Noto Serif JP', serif !important; }
+        .gothic { font-family: メイリオ, sans-serif !important; }
+        
+        .back-link { text-align: center; margin-top: 30px; }
     </style>
 </head>
 
 <body id="all" class="white">
 <main>
 
-    <section class="style">
-        <div id="novel_buttons">  
-            <ul id="s_ul" style="display: flex; justify-content: flex-end;">
-                <li id="s_li"><ul id="bw_swich"><li id="BgToggle" title="背景切替"><i class="fas fa-adjust"></i></li></ul></li>
-                <li id="s_li"><ul id="switchFont"><li id="btn_font_toggle" class="serif" title="書体切替">ａＡ</li></ul></li>
-                <li id="s_li"><ul id="switchFontSize"><li id="btn_size_toggle" class="gothic current" title="サイズ変更">M</li></ul></li>
-            </ul>
-        </div>
-    </section>            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .toggle-btn {
-            list-style: none;
-            padding: 5px 15px;
-            border: 1px solid #ddd;
-            background: #eee;
-            cursor: pointer;
-            color: #333;
-            margin-left: 5px;
-            font-size: 14px;
-            border-radius: 4px;
-        }
-
-        /* 本文エリア */
-        #honbun { line-height: 2; margin-top: 30px; }
-        #honbun.small { font-size: 13px; }
-        #honbun.middle { font-size: 16px; }
-        #honbun.large { font-size: 20px; }
-        #honbun.serif { font-family: 'Noto Serif JP', serif; }
-        #honbun.gothic { font-family: メイリオ, sans-serif; }
-
-        .back-link { text-align: center; margin-top: 50px; }
-        a { color: inherit; text-decoration: none; border-bottom: 1px dotted; }
-    </style>
-
-    <script>
-    $(document).ready(function() {
-        // --- 背景色切り替え ---
-        $("#BgToggle").click(function () {
-            $("body").toggleClass('black white');
-        });
-
-        // --- フォント切り替え ---
-        $("#btn_font_toggle").click(function () {
-            $("#honbun").toggleClass('serif gothic');
-        });
-
-        // --- サイズ切り替え ---
-        var sizes = ['small', 'middle', 'large'];
-        var currentSizeIdx = 1; // 最初はmiddle
-        $("#btn_size_toggle").click(function () {
-            currentSizeIdx = (currentSizeIdx + 1) % sizes.length;
-            $("#honbun").removeClass('small middle large').addClass(sizes[currentSizeIdx]);
-            $(this).text(sizes[currentSizeIdx].toUpperCase().charAt(0)); // S, M, L表示
-        });
-    });
-    </script>
-</head>
-
-<body class="white">
-<main>
-
-    <div id="novel_buttons">
-        <div id="BgToggle" class="toggle-btn" title="背景切替"><i class="fas fa-adjust"></i></div>
-        <div id="btn_font_toggle" class="toggle-btn" title="書体切替">ａＡ</div>
-        <div id="btn_size_toggle" class="toggle-btn" title="サイズ変更">M</div>
+    <div id="novel_buttons">  
+        <ul style="display: flex;">
+            <li id="BgToggle" title="背景切替"><i class="fas fa-adjust"></i></li>
+            <li id="btn_font_toggle" class="toggle-btn" style="list-style:none; margin:0 5px;" title="書体切替">ａＡ</li>
+            <li id="btn_size_toggle" class="toggle-btn" style="list-style:none;" title="サイズ変更">M</li>
+        </ul>
     </div>
 
     <div id="honbun" class="middle gothic">
-        
-        ここに小説の本文を書きます。<br>
-        改行するときは「br」を入れます。<br>
+        「蓮、こっち向いて」<br>
         <br>
-        上のボタンを押すと、背景の色や文字の大きさが変わるはずです！
-        </div>
+        ここに本文を書いてください。黒モードにしても、枠がうっすら透けるはずです。
+    </div>
 
     <div class="back-link">
-        <a href="short.html">短編目次へ戻る</a>
+        <a href="short.html">戻る</a>
     </div>
 
 </main>
