@@ -44,35 +44,22 @@
     
         /* --- ラッパー (PC/スマホ可変) --- */
         #wrapper {
-            max-width: 800px;
+            max-width: 800px; /* PC最大幅 */
             margin: 0 auto;
             padding: 20px 20px 10px;
         }
 
-        /* PCの背景画像設定 */
-        body {
-            background-image: url("20180812143742 (1).png"); 
-            background-repeat: no-repeat;
-            /* PCでは少し大きめ（元のコードに近い設定） */
-            background-size: 500px;
-            background-position: 30% 5%; 
-        }
-
-        /* スマホ用（画面幅が600px以下の時）の設定 */
         @media (max-width: 600px) {
             #wrapper {
-                max-width: 500px;
-                padding-top: 150px; /* 画像がタイトルに被らないよう上に隙間を作る */
+                max-width: 500px; /* スマホ最大幅 */
+                background-size: 340px;
+                background-position: top;
             }
             body {
-                /* 元のコードと同じ 340px に指定 */
-                background-size: 340px;
-                /* 上の真ん中に配置 */
-                background-position: center 20px; 
                 font-size: 14px;
                 line-height: 22px;
             }
-        
+        }
 
         /* --- コンテンツエリア --- */
         .sitetitle {
